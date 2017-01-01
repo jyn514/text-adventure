@@ -16,6 +16,14 @@ def light():
         
     else:
         print('flashlight error')
+      
+class room:
+    def __init__(self, name, coordinates):
+        self.name = name
+        self.coordinates = [x,y]
+    
+    def room.checklight()
+    #i don't know what i'm doing so i'm gonna stop
 
 flashlight=0
 #Boolean, flashlight starts off
