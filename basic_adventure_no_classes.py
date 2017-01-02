@@ -51,17 +51,15 @@ door1=0
 #Boolean, door starts closed
 
 while True:
-    command = input ('>')
-    if command == 'location':
-        print(location)
-    elif command == 'light':
-        light()
     while location == room1:
         command = input ('>>')
         if command == 'open door' or 'open':
             door1=1
-#error here, loops printing next string regardless of input
             print('You open the door to the shack. Light dimly shines from the corridor ahead')
+        elif command == 'location':
+            print(location.name)
+        elif command == 'light':
+            light()           
         elif command == 'leave' or 'leave room' or 'forward' or 'corridor':
             if door1==0:
                 print('You hit your head on the door! Ouch.')
