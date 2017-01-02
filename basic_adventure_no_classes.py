@@ -26,7 +26,7 @@ def light(flashlight):
         sleep(3)
         print(location.desc_dark)
         return 0
-       
+    
     else:
         print('flashlight error')
       
@@ -53,18 +53,18 @@ door1=0
 while True:
     while location == room1:
         command = input ('>>')
-        if command == 'open door' or 'open':
+        if command == 'open door':
             door1=1
             print('You open the door to the shack. Light dimly shines from the corridor ahead')
         elif command == 'location':
             print(location.name)
         elif command == 'light':
-            light()           
-        elif command == 'leave' or 'leave room' or 'forward' or 'corridor':
+            flashlight = light(flashlight)
+            
+        elif command == 'leave':
             if door1==0:
                 print('You hit your head on the door! Ouch.')
             elif door1==1:
-#getting an error right here, 'unknown general' infinitely prints
                 print('You walk into the corridor ahead.')
                 location=corridor1
                 if flashlight==0:
@@ -72,8 +72,14 @@ while True:
                 elif flashlight==1:
                     print(corridor1.desc_light)
                 else:
-                    print('corridor1 error')
+                    print('flashlight error 2')
+            else:
+                print('door error')
         else:
             print('unknown room1')
+    while location == corridor1:
+        command = input ('>>>')
+        
     else:
         print('unknown general')
+
