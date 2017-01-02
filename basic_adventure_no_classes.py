@@ -60,6 +60,7 @@ while True:
         command = input ('>')
         if command == 'open door' or 'open':
             door1=1
+#error here, loops printing next string regardless of input
             print('You open the door to the shack. Light dimly shines from the corridor ahead')
         elif command == 'leave' or 'leave room' or 'forward' or 'corridor':
             if door1==0:
@@ -71,3 +72,7 @@ while True:
                     print(corridor1.desc_dark)
                 elif flashlight==1:
                     print(corridor1.desc_light)
+        else:
+            print('You have entered an unknown value.')
+    else:
+        print('You have entered an unknown value.')
