@@ -44,9 +44,9 @@ room2=room('in development', 0, 2)
 room2.desc_dark = "In development."
 room2.desc_light = "In development."
 
-flashlight=0
+flashlight = 0
 #Boolean, flashlight starts off
-location=room1
+location = room1
 door1=0
 #Boolean, door starts closed
 
@@ -54,10 +54,10 @@ while True:
     command = input ('>')
     if command == 'location':
         print(location)
-    elif command == 'location':
+    elif command == 'light':
         light()
     while location == room1:
-        command = input ('>')
+        command = input ('>>')
         if command == 'open door' or 'open':
             door1=1
 #error here, loops printing next string regardless of input
@@ -73,6 +73,6 @@ while True:
                 elif flashlight==1:
                     print(corridor1.desc_light)
         else:
-            print('You have entered an unknown value.')
+            print('unknown room1')
     else:
-        print('You have entered an unknown value.')
+        print('unknown general')
