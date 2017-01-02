@@ -36,9 +36,11 @@ room1=room('entrance', 0, 0)
 room1.desc_dark = 'You find yourself in a dimly lit room. You can make out a closed door, where light is creeping through.'
 room1.desc_light = 'You are in a wooden shack.'
 
+corridor1=room('tunnel', 0, 1)
 corridor1.desc_dark = 'You see brighter light - it seems to be shining through cracks in the walls. You hear birds chirping.'
 corridor1.desc_light = 'You are in a wooden corridor made with crudely cut planks. There is a dirt floor, and you hear birds chirping.'
 
+room2=room('in development', 0, 2)
 room2.desc_dark = "In development."
 room2.desc_light = "In development."
 
