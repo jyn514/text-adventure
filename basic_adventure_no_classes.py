@@ -36,20 +36,20 @@ while True
     command = input ('>')
     if command == 'location':
         print(location)
-    if command == 'location':
+    elif command == 'location':
         light()
     while location == room1:
         command = input ('>')
         if command == 'open door' or 'open':
             door1=1
             print('You open the door to the shack. Light dimly shines from the corridor ahead')
-        if command == 'leave' or 'leave room' or 'forward' or 'corridor':
+        elif command == 'leave' or 'leave room' or 'forward' or 'corridor':
             if door1==0:
                 print('You hit your head on the door! Ouch.')
-            if door1==1:
+            elif door1==1:
                 print('You walk into the corridor ahead.')
                 location=corridor1
                 if flashlight==0:
                     print(corridor1.desc_dark)
-                if flashlight==1:
+                elif flashlight==1:
                     print(corridor1.desc_light)
