@@ -15,18 +15,18 @@ class room:
         if flashlight == 1:
             return 1
     
-def light():
+def light(flashlight):
     if flashlight == 0:
         print('You turn on your flashlight.')
-        flashlight = 1
         print(location.desc_light)
+        return 1
         
     elif flashlight == 1:
         print("You turn your flashlight off. You can't see for a moment as your eyes adjust.")
-        flashlight = 0
         sleep(3)
         print(location.desc_dark)
-        
+        return 0
+       
     else:
         print('flashlight error')
       
@@ -56,7 +56,6 @@ while True:
         if command == 'open door' or 'open':
             door1=1
             print('You open the door to the shack. Light dimly shines from the corridor ahead')
-#still repeats here regardless of input
         elif command == 'location':
             print(location.name)
         elif command == 'light':
@@ -65,12 +64,15 @@ while True:
             if door1==0:
                 print('You hit your head on the door! Ouch.')
             elif door1==1:
+#getting an error right here, 'unknown general' infinitely prints
                 print('You walk into the corridor ahead.')
                 location=corridor1
                 if flashlight==0:
                     print(corridor1.desc_dark)
                 elif flashlight==1:
                     print(corridor1.desc_light)
+                else:
+                    print('corridor1 error')
         else:
             print('unknown room1')
     else:
