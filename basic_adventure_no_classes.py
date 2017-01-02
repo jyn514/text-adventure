@@ -3,7 +3,7 @@
 from time import sleep
 
 class room:
-    def __init__(self, name, coordinates):
+    def __init__(self, name, x, y):
         self.name = name
         self.coordinates = [x,y]
         self.desc_dark = ""
@@ -32,12 +32,7 @@ def light():
       
 
 
-flashlight=0
-#Boolean, flashlight starts off
-location=room1
-door1=0
-#Boolean, door starts closed
-
+room1=room('entrance', 0, 0)
 room1.desc_dark = 'You find yourself in a dimly lit room. You can make out a closed door, where light is creeping through.'
 room1.desc_light = 'You are in a wooden shack.'
 
@@ -46,6 +41,12 @@ corridor1.desc_light = 'You are in a wooden corridor made with crudely cut plank
 
 room2.desc_dark = "In development."
 room2.desc_light = "In development."
+
+flashlight=0
+#Boolean, flashlight starts off
+location=room1
+door1=0
+#Boolean, door starts closed
 
 while True:
     command = input ('>')
