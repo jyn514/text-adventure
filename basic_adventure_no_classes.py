@@ -2,6 +2,15 @@
  
 from time import sleep
 
+class room:
+    def __init__(self, name, coordinates):
+        self.name = name
+        self.coordinates = [x,y]
+        self.desc_dark = ""
+        self.desc_light = ""
+    
+    def room.checklight()
+    
 def light():
     if flashlight == 0:
         print('You turn on your flashlight.')
@@ -17,13 +26,7 @@ def light():
     else:
         print('flashlight error')
       
-class room:
-    def __init__(self, name, coordinates):
-        self.name = name
-        self.coordinates = [x,y]
-    
-    def room.checklight()
-    #i don't know what i'm doing so i'm gonna stop
+
 
 flashlight=0
 #Boolean, flashlight starts off
@@ -40,7 +43,7 @@ corridor1.desc_light = 'You are in a wooden corridor made with crudely cut plank
 room2.desc_dark = "In development."
 room2.desc_light = "In development."
 
-while True
+while True:
     command = input ('>')
     if command == 'location':
         print(location)
