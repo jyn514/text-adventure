@@ -56,6 +56,7 @@ while True:
         if command == 'open door' or 'open':
             door1=1
             print('You open the door to the shack. Light dimly shines from the corridor ahead')
+#still repeats here regardless of input
         elif command == 'location':
             print(location.name)
         elif command == 'light':
