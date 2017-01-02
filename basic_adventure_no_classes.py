@@ -9,7 +9,7 @@ class room:
         self.desc_dark = ""
         self.desc_light = ""
     
-    def self.checklight():
+    def checklight():
         if flashlight == 0:
             return 0
         if flashlight == 1:
