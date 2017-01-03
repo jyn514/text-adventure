@@ -14,6 +14,12 @@ class room:
             return 0
         if flashlight == 1:
             return 1
+         
+def look(flashlight):
+    if flashlight == 0:
+         print (location.desc_dark)
+    if flashlight == 1:
+         print (location.desc_light)
     
 def light(flashlight):
     if flashlight == 0:
@@ -26,9 +32,6 @@ def light(flashlight):
         sleep(3)
         print(location.desc_dark)
         return 0
-    
-    else:
-        print('flashlight error')
       
 
 
@@ -49,18 +52,24 @@ flashlight = 0
 location = room1
 door1=0
 #Boolean, door starts closed
+inventory = ['Flashlight']
+
+print(room1.desc_dark)
 
 while True:
     while location == room1:
         command = input ('>>')
         if command == 'open door':
-            door1=1
+            door1 = 1
             print('You open the door to the shack. Light dimly shines from the corridor ahead')
         elif command == 'location':
             print(location.name)
         elif command == 'light':
             flashlight = light(flashlight)
-            
+        elif (command == 'look') or (command == 'look around'):
+            look(flashlight)
+        elif command == 'inventory':
+            print(inventory)            
         elif command == 'leave':
             if door1==0:
                 print('You hit your head on the door! Ouch.')
@@ -73,8 +82,6 @@ while True:
                     print(corridor1.desc_light)
                 else:
                     print('flashlight error 2')
-            else:
-                print('door error')
         else:
             print('unknown room1')
     while location == corridor1:
