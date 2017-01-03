@@ -37,6 +37,7 @@ def inventory():
     for x in inventory:
          print(x)
 
+        
 
 room1=room('entrance', 0, 0)
 room1.desc_dark = 'You find yourself in a dimly lit room. You can make out a closed door, where light is creeping through.'
@@ -49,6 +50,8 @@ corridor1.desc_light = 'You are in a wooden corridor made with crudely cut plank
 room2=room('in development', 0, 2)
 room2.desc_dark = "In development."
 room2.desc_light = "In development."
+
+
 
 flashlight = 0
 #Boolean, flashlight starts off
@@ -65,6 +68,7 @@ while True:
         if command == 'open door':
             door1 = 1
             print('You open the door to the shack. Light dimly shines from the corridor ahead')
+
         elif command == 'location':
             print(location.name)
         elif command == 'light':
