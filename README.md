@@ -1,4 +1,4 @@
 # first-text-adventure
-Work in progress; currently will not run. basic_adventure is the first document, I got lost doing too many things at once and created basic_adventure_no_classes to ensure I knew what was going on in my own code. Would appreciate help making this class-based as it would save a lot of typing.
+Got it working! Rooms are still only objects class-based, but it's well situated for further content increase. Good progress.
 
-Very raw. If there's a category before pre-alpha, this is it.
+Ready to play, although options are severely limited until further development.
