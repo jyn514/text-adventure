@@ -32,7 +32,10 @@ def light(flashlight):
         sleep(3)
         print(location.desc_dark)
         return 0
-      
+   
+def inventory():
+    for x in inventory:
+         print(x)
 
 
 room1=room('entrance', 0, 0)
@@ -69,7 +72,7 @@ while True:
         elif (command == 'look') or (command == 'look around'):
             look(flashlight)
         elif command == 'inventory':
-            print(inventory)            
+            inventory()           
         elif command == 'leave':
             if door1==0:
                 print('You hit your head on the door! Ouch.')
