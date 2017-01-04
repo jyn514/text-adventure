@@ -10,6 +10,6 @@ Enjoy!
 
 
 
-A note to players who have read Amber in detail (**SPOILERS**): 
+A note to players who have read Amber in detail: 
 
 I am aware that this game does not exactly match the scene in Guns of Avalon, and that the Pattern in the Amber universe is not a maze. All changes are to make the game more interactive or simpler to code. 
