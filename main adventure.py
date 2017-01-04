@@ -115,6 +115,23 @@ while True:
         
     delete(actions, 'open door')
     delete(actions, 'open')
+
+    print('Out of content. I guess that counts as beating the game?')
     while location == corridor1:
         command = input ('>>')
-    print('Out of content. I guess that counts as beating the game?')
+        if command == 'location':
+            print(location.name)    
+        elif command == 'look':
+            look(flashlight.state)
+        elif command =='inventory':
+            for x in inventory:
+                print(x.name)
+        for x in ['light', 'light flashlight', "turn on", "turn on light"]:
+            if command == x:
+                flashlight.state = light(flashlight.state)
+                for x in inventory:
+            if (command == x.name) or (command == "inspect " + x.name):
+                print(x.desc)
+        if command not in actions:
+            print("Sorry, I don't recognize that word.")
+       
