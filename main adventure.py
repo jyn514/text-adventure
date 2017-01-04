@@ -6,12 +6,12 @@ class room:
         self.coordinates = [x,y]
         self.desc_dark = ""
         self.desc_light = ""
+        self.actions = actions{'location' : print(location.name), 'look' : look(flashlight.state), 'inventory' : inventory(), 
+                               'light' : light(flashlight.state), 'inspect' + (str in inventory): inspect(str)}
+#suspected error for inspect(str) call
     
-    def checklight():
-        if flashlight.state == 0:
-            return 0
-        if flashlight.state == 1:
-            return 1
+    def add_act(self, act, result):
+        self.actions.append(act : result)
 
 class item:
     def __init__(self, name):
@@ -50,7 +50,8 @@ corridor1.desc_dark = ('You see brighter light - it seems to be shining through 
 corridor1.desc_light = ('You are in a wooden corridor made with crudely cut planks. There is a dirt ' +
                             'floor, and you hear birds chirping.')
 
-room2=room('in development', 0, 2)
+room2=room('open room', 0, 2)
+#name tentatively 'open room', subject to change
 room2.desc_dark = "In development."
 room2.desc_light = "In development."
 
