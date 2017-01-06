@@ -1,21 +1,17 @@
 from time import sleep
 
-actions = {}
-
 class room:
     def __init__(self, name, x, y):
         self.name = name
         self.coordinates = [x,y]
         self.desc_dark = ""
         self.desc_light = ""
-        self.actions = actions
-#confirmed error for inspect(str) call
     
-    def add_act(self, act, result):
-        self.actions.append(act)
-        self.actions.append(" : ")
-        self.actions.append(result)
-#does NOT work, need to change
+    def checklight():
+        if flashlight.state == 0:
+            return 0
+        if flashlight.state == 1:
+            return 1
 
 class item:
     def __init__(self, name):
@@ -42,17 +38,6 @@ def light(lit):
     else:
         print('flashlight error')
 
-def inventory():
-    for x in carrying:
-        print(x.name)
-
-def inspect(x):
-    print(x.desc)
-    
-def delete(dict, x):
-    if x in dict:
-        del (x)
-#not certain this works. will check once code compiles without error 
       
 room1=room('entrance', 0, 0)
 room1.desc_dark = ('You find yourself in a dimly lit room. You can make out a closed door, where light is ' +
@@ -65,8 +50,7 @@ corridor1.desc_dark = ('You see brighter light - it seems to be shining through 
 corridor1.desc_light = ('You are in a wooden corridor made with crudely cut planks. There is a dirt ' +
                             'floor, and you hear birds chirping.')
 
-room2=room('open room', 0, 2)
-#name tentatively 'open room', subject to change
+room2=room('in development', 0, 2)
 room2.desc_dark = "In development."
 room2.desc_light = "In development."
 
@@ -78,31 +62,18 @@ flashlight.state = 0
 location = room1
 door1=0
 #Boolean, door starts closed
-carrying=[flashlight]
+inventory=[flashlight]
 
-actions={'location' : print(location.name),
-         'look' : look(flashlight.state),
-         'inventory' : inventory(), 
-         'light' : light(flashlight.state),
-         'inspect flashlight' : inspect(flashlight)}
-#had to take out 'inspect x' command, couldn't get it to work within a dictionary.
-
-
+actions=['location', 'look', 'inventory', 'light', 'light flashlight', 'leave', 'exit', 'forward', 'flashlight',
+         'Flashlight', "inspect flashlight", "enter"]
+def delete(list, x):
+    if x in list:
+        x=[]
+#needs to be dictionary, not list. will fix when i have time to figure it out
 
 
-print("You are Prince Corwin of Amber, son of King Oberon, son of Dworkin Barimen.")
-print("Your elder brother, Eric, has died in an assault by mysterious forces, an assault you led an army to repel, " + 
-      "but not before passing the crown, and more importantly, the Jewel of Amber on to you.")
-print("The Jewel of Judgement gives you power over Amber - over the weather, over the castle, and ultimately over the Shadows:")
-print("the reflections of Amber, a multiverse of alternate worlds which are similar Amber to a greater or lesser extent," + 
-      "before eventually dissolving into infinite Shadows of Chaos.")
-print("To use the Jewel, however, you must attune yourself to the Pattern, the magical maze deep underneath the castle of Amber.")
 
-while input("Are you ready to walk the Pattern?") not in ["yes", "Yes", "y", "ready"]:
-    print("The Pattern will wait. The Pattern is eternal.")
-    
-
-
+print(room1.desc_dark)
 while True:
     actions.append('open door')
     actions.append('open')
@@ -144,24 +115,6 @@ while True:
         
     delete(actions, 'open door')
     delete(actions, 'open')
-
     print('Out of content. I guess that counts as beating the game?')
     while location == corridor1:
         command = input ('>>')
-        if command == 'location':
-            print(location.name)    
-        elif command == 'look':
-            look(flashlight.state)
-        elif command =='inventory':
-            for x in inventory:
-                print(x.name)
-        for x in ['light', 'light flashlight', "turn on", "turn on light"]:
-            if command == x:
-                flashlight.state = light(flashlight.state)
-                for x in inventory:
-                    if (command == x.name) or (command == "inspect " + x.name):
-                        print(x.desc)
-        if command not in actions:
-            print("Sorry, I don't recognize that word.")
-       
-
