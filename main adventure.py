@@ -64,7 +64,7 @@ door1=0
 #Boolean, door starts closed
 inventory=[flashlight]
 
-actions=['location', 'look', 'inventory', 'light', 'light flashlight', 'leave', 'exit', 'forward', 'flashlight',
+actions=['location', 'look', 'inventory', 'light', 'use flashlight', 'light flashlight', 'leave', 'exit', 'forward', 'flashlight',
          'Flashlight', "inspect flashlight", "enter"]
 def delete(list, x):
     if x in list:
@@ -89,7 +89,7 @@ while True:
         elif command =='inventory':
             for x in inventory:
                 print(x.name)
-        for x in ['light', 'light flashlight', "turn on", "turn on light"]:
+        for x in ['light', 'use flashlight', 'light flashlight', "turn on", "turn on light"]:
             if command == x:
                 flashlight.state = light(flashlight.state) 
         for x in ['leave', 'exit', 'forward', 'enter']:
