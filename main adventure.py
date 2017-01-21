@@ -29,15 +29,16 @@ def light(lit):
         sleep(3)
         print(location.desc_dark)
         return 0
-
-#this function isn't working
+    
 def check_water(water):
-    if bottle.water == "full":
+    if water == "full":
         return bottle.desc_full
-    elif bottle.water == "half":
+    elif water == "half":
         return bottle.desc_half_full
-    elif bottle.water == "empty":
+    elif water == "empty":
         return bottle.desc_empty
+    else:
+        print('error')
 
 def inspect(x):
     if x in inventory:
@@ -121,6 +122,7 @@ while game_finish == 0:
 #interactive game starts here    
     check_action = 0    
     command = input ('>>')
+#want to change ALL this to eval(command)
     if location == room1:
         if (command =='open door') or (command == 'open'):
             door1=1
@@ -134,7 +136,7 @@ while game_finish == 0:
                 elif door1==1:
                     print("You walk into the corridor ahead. There is a chill in the air you can feel even through" +
                                "your winter clothes.")
-#location changes to corridor1                    
+#location changes to corridor1
                     location=corridor1
                     delete(actions, 'open door')
                     delete(actions, 'open')
