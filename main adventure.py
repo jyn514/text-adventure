@@ -82,10 +82,20 @@ bottle.desc_half_full = "It's half-full, and lighter than it was."
 bottle.desc_empty = ("It's dry. There's a couple droplets left, but they're resolutely clinging to the bottom.")
 bottle.desc = ("Your water bottle. It's made of a light metal, maybe aluminum. " + check_water(bottle.water))
 
+key = item("old key")
+key.desc = "An old iron key, worn by time. Perhaps you'll find a use for it later."
+
+note = item("worn note")
+note.desc = "A hastily scribbled note. It says 'Key to door. Remember, lock turns right.'"
+
+chest = item("wooden chest")
+chest.desc = "A hand-crafted chest that looks as if it's seen better days. It contains:"
+
+chest_contents = [key, note] 
 location = room1
 door1=0
 game_finish = 0 
-inventory=[backpack, flashlight, bottle, ]
+inventory=[backpack, flashlight, bottle]
 check_action = 0
 
 #intro starts here
