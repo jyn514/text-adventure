@@ -29,13 +29,14 @@ def light(lit):
         sleep(3)
         print(location.desc_dark)
         return 0
-    
+
+#this function isn't working
 def check_water(water):
-    if water == "full":
+    if bottle.water == "full":
         return bottle.desc_full
-    if water == "half":
+    elif bottle.water == "half":
         return bottle.desc_half_full
-    if water == "empty":
+    elif bottle.water == "empty":
         return bottle.desc_empty
 
 def inspect(x):
@@ -84,15 +85,7 @@ location = room1
 door1=0
 game_finish = 0 
 inventory=[backpack, flashlight, bottle, ]
-
-actions=['location', 'look', 'inventory', 'backpack', 'bookbag', 'bag', 'inspect backpack', 'light', 
-         'use flashlight', 'light flashlight', 'leave', 'exit', 'forward', 'flashlight',
-         'Flashlight', "inspect flashlight", "enter", 'water bottle', "drink", "drink water", "use water",
-         'enter corridor', 'inspect bottle', 'inspect water bottle', 'flashlight on', 'turn on', 'exit room',
-         'open door', 'open', 'look backpack']
-#need to make this list automated, ton of useless typing
-
-#needs to be dictionary, not list. will fix when i have time to figure it out
+check_action = 0
 
 #intro starts here
 print("Would you like to watch the intro? It adds a story to the game. (yes/no)")
@@ -122,55 +115,69 @@ if command == 'yes':
           "threw you off the path and into the air. \nYou need to find Fido and get out of here, " +
           "wherever 'here' is.")
     sleep(3)
-    command = 'no'
     
 print("(Basic commands: look, inventory, inspect [item in inventory])")    
 while game_finish == 0:
-    #interactive game starts here    
-
+#interactive game starts here    
+    check_action = 0    
     command = input ('>>')
     if location == room1:
         if (command =='open door') or (command == 'open'):
             door1=1
+            check_action += 1
             print('You open the door to the shack. Light dimly shines from the corridor ahead.')
         for x in ['leave', 'exit', 'forward', 'enter', 'enter corridor', 'exit room']:
             if command==x:
+                check_action += 1
                 if door1==0:
                     print('You hit your head on the door! Ouch.')
                 elif door1==1:
                     print("You walk into the corridor ahead. There is a chill in the air you can feel even through" +
                                "your winter clothes.")
+#location changes to corridor1                    
                     location=corridor1
                     delete(actions, 'open door')
-                    delete(actions, 'open')    
+                    delete(actions, 'open')
+                    actions.append('back')
+                    actions.append('forward')
                     if flashlight.state==0:
                         print(corridor1.desc_dark)
                     elif flashlight.state==1:
                         print(corridor1.desc_light)
-                    else:
-                        print('flashlight error 2')
-                else:
-                    print('door error')    
+                        
+    if location == corridor1:
+        for x in ['back', 'room1', 'entrance', 'turn around']:
+            if (command == x) or (command == "go" + x):
+                check_action += 1
+                location = room1
+                look(flashlight.state)
+                  
     if command == 'location':
+        check_action += 1
         print(location.name)    
     if command == 'look':
+        check_action += 1
         look(flashlight.state)
     for x in inventory:
         if (command == x.name) or (command == "inspect " + x.name) or (command == "look " + x.name):
             inspect(x)
+            check_action += 1
     for x in ['bottle', 'inspect bottle', 'look bottle']:
         if command == x:
             inspect(bottle)
+            check_action += 1
     for x in ['inspect backpack', 'backpack', 'bookbag', 'bag', 'inventory', 'look backpack']:
         if command == x:
             for y in inventory:
                 print(y.name)
+                check_action += 1
     for x in ['light', 'use flashlight', 'light flashlight', "turn on", "turn on light", 'flashlight on']:
         if command == x:
             flashlight.state = light(flashlight.state) 
-
+            check_action += 1
     for x in ["drink", "drink water", "use water"]:
         if command == x :
+            check_action += 1
             if bottle.water == "empty":
                 print(bottle.desc_empty)        
             if bottle.water == "half":
@@ -179,12 +186,13 @@ while game_finish == 0:
             if bottle.water == "full":
                 bottle.water = "half"
                 print("You drink half the water in your bottle.")
-                
-
-
-    if command not in actions:
+    if command == 'quit':
+        raise SystemExit            
+    if check_action == 0:
         print("Sorry, I don't recognize that word.")
+
+
 
 print('Out of content. I guess that counts as beating the game?')
 game_finish = 1
-
+raise SystemExit
