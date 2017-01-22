@@ -90,8 +90,8 @@ note.desc = "A hastily scribbled note. It says 'Key to door. Remember, lock turn
 
 chest = item("wooden chest")
 chest.desc = "A hand-crafted chest that looks as if it's seen better days. It contains:"
+chest.contents = [key, note] 
 
-chest_contents = [key, note] 
 location = room1
 door1=0
 game_finish = 0 
@@ -138,6 +138,11 @@ while game_finish == 0:
             door1=1
             check_action += 1
             print('You open the door to the shack. Light dimly shines from the corridor ahead.')
+        for x in ['look chest', 'chest', 'open chest']:
+            if command == x:
+                print(chest.desc)
+                for x in chest.contents:
+                    print(x)
         for x in ['leave', 'exit', 'forward', 'enter', 'enter corridor', 'exit room']:
             if command==x:
                 check_action += 1
