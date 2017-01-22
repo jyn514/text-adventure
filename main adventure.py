@@ -142,7 +142,18 @@ while game_finish == 0:
             if command == x:
                 print(chest.desc)
                 for x in chest.contents:
-                    print(x)
+                    print(x.name)
+                check_action += 1
+        for x in chest.contents:
+            if (command == x.name) or (command == "inspect " + x.name) or (command == "look " + x.name):
+                print(x.desc)
+                check_action += 1
+            if (command == "take " + x.name):
+                delete(chest.contents, x)
+                inventory.append(x)
+                print("You take the " + x.name + ".")
+                check_action += 1
+        
         for x in ['leave', 'exit', 'forward', 'enter', 'enter corridor', 'exit room']:
             if command==x:
                 check_action += 1
