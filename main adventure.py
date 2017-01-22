@@ -103,13 +103,13 @@ while (command != 'yes') and (command != 'no'):
     
 if command == 'yes':
     print(room1.desc_dark)
-    print("You can't remember how you got here. The last thing you remember is hiking with your dog,"
+    print("You can't remember how you got here. The last thing you remember is hiking with your dog, "
           + "Fido, in . . . ")
     sleep(5)
     print("Where were you hiking? God, your head hurts. Maybe a glass of water would do you good. \n" +
           "You reach into your backpack.")
     sleep(2)
-    print("It's beaten up, not worn but as if it had been left in mud and marched on. What in the world" +
+    print("It's beaten up, not worn but as if it had been left in mud and marched on. What in the world " +
           "happened?")
     sleep(2)
     print("You get out your water bottle. The water inside is lukewarm, but it's better than nothing.")
@@ -194,7 +194,8 @@ while game_finish == 0:
             for y in inventory:
                 print(y.name)
                 check_action += 1
-    for x in ['light', 'use flashlight', 'light flashlight', "turn on", "turn on light", 'flashlight on']:
+    for x in ['light', 'use flashlight', 'light flashlight', "turn on", "turn on light", 'flashlight on',
+              'turn on flashlight', 'turn flashlight on']:
         if command == x:
             flashlight.state = light(flashlight.state) 
             check_action += 1
