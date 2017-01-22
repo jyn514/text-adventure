@@ -46,10 +46,6 @@ def inspect(x):
     else:
         print("You can't inspect things that aren't in your backpack. Try looking instead.")
 
-def delete(list, x):
-    if x in list:
-        x=[]
-        
 room1=room('entrance', 0, 0)
 room1.desc_dark = ('You find yourself in a dimly lit room. You can make out a closed door, where light is ' +
                        'creeping through.')
@@ -149,11 +145,10 @@ while game_finish == 0:
                 print(x.desc)
                 check_action += 1
             if (command == "take " + x.name):
-                delete(chest.contents, x)
                 inventory.append(x)
                 print("You take the " + x.name + ".")
                 check_action += 1
-        
+                chest.contents.remove(x)        
         for x in ['leave', 'exit', 'forward', 'enter', 'enter corridor', 'exit room']:
             if command==x:
                 check_action += 1
