@@ -179,7 +179,28 @@ while game_finish == 0:
                 check_action += 1
                 location = room1
                 look(flashlight.state)
-                  
+        for x in ['forward', 'door', 'end of corridor']:
+            for y in ['look', 'go' 'walk']:
+                if command == y + x:
+                    print("You walk through the dense snow. It's hard to find your footing, good thing you're wearing boots.")
+                    print("At the end of the corridor, the snow is even thicker, piling up against the door in a giant drift. " +
+                          "It's a blinding white even in the moonlight. You can feel wind blow in from outside, " +
+                          "an icy breeze that chills you to the bone.")
+                    print("The door itself is made of a dark thick wood, made darker by melted snow. " +
+                          "Its rusted hinges face you on your left.")
+                    check_action += 1
+        if command == 'open door':
+            print("It's stuck. The snow is piled against it, forcing it shut.")
+            sleep(1)
+            print("(hint: type 'clear snow' to open the door)")
+        if command == 'clear snow' or command == 'move snow':
+            print("The snow is, quite literally, freezing cold. Good thing you've got your ski clothes on.")
+            print("Pushing snow", end = " ")
+            loading = 0
+            while loading < 5:
+                sleep(1)
+                loading += 1
+                print(".", end = " ")
     if command == 'location':
         check_action += 1
         print(location.name)    
