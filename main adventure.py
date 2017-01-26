@@ -154,20 +154,16 @@ while game_finish == 0:
                 check_action += 1
                 chest.contents.remove(x)
         
-        for x in ['leave', 'exit', 'forward', 'enter', 'enter corridor', 'exit room']:
-            if command==x:
+        for x in ['leave', 'exit', 'corridor', 'forward', 'enter', 'enter corridor', 'exit room']:
+            if command==x or command == "go " + x:
                 check_action += 1
                 if door1==0:
                     print('You hit your head on the door! Ouch.')
                 elif door1==1:
-                    print("You walk into the corridor ahead. There is a chill in the air you can feel even through" +
+                    print("You walk into the corridor ahead. There is a chill in the air you can feel even through " +
                                "your winter clothes.")
 #location changes to corridor1
                     location=corridor1
-                    delete(actions, 'open door')
-                    delete(actions, 'open')
-                    actions.append('back')
-                    actions.append('forward')
                     if flashlight.state==0:
                         print(corridor1.desc_dark)
                     elif flashlight.state==1:
@@ -181,7 +177,7 @@ while game_finish == 0:
                 look(flashlight.state)
         for x in ['forward', 'door', 'end of corridor']:
             for y in ['look', 'go' 'walk']:
-                if command == y + x:
+                if command == y + " " + x:
                     print("You walk through the dense snow. It's hard to find your footing, good thing you're wearing boots.")
                     print("At the end of the corridor, the snow is even thicker, piling up against the door in a giant drift. " +
                           "It's a blinding white even in the moonlight. You can feel wind blow in from outside, " +
@@ -193,6 +189,7 @@ while game_finish == 0:
             print("It's stuck. The snow is piled against it, forcing it shut.")
             sleep(1)
             print("(hint: type 'clear snow' to open the door)")
+            check_action += 1
         if command == 'clear snow' or command == 'move snow':
             print("The snow is, quite literally, freezing cold. Good thing you've got your ski clothes on.")
             print("Pushing snow", end = " ")
@@ -201,6 +198,7 @@ while game_finish == 0:
                 sleep(1)
                 loading += 1
                 print(".", end = " ")
+            check_action += 1
     if command == 'location':
         check_action += 1
         print(location.name)    
@@ -246,4 +244,3 @@ while game_finish == 0:
 print('Out of content. I guess that counts as beating the game?')
 game_finish = 1
 raise SystemExit
-
