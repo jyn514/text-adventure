@@ -52,15 +52,17 @@ room1.desc_dark = ('You find yourself in a dimly lit room. You can make out a cl
 room1.desc_light = ('Your flashlight is brighter than you expected in the dim room. The room is made of wood planks, ' +
                        'and the ceiling is sloped. There is a chest in the middle of the room.')
 
-corridor1=room('collapsed corridor', 0, 1)
-corridor1.desc_dark = ("There's a hole in the roof! There's a ton of snow all over the passageway. \n" +
+corridor1=room('corridor', 0, 1)
+corridor1.desc_dark = ("There's a hole in the roof. There's a ton of snow all over the passageway. \n" +
                        "It's night-time out, and your eyes are starting to adjust to the light of the moon.")
 corridor1.desc_light = ("This whole corridor looks ready to collapse. The room has already caved in, and there's snow  " +
                             "all over the passageway. \nBroken planks stick out here and there amongst the wreckage.")
 
-room2=room('basement', 0, 2)
-room2.desc_dark = "In development."
-room2.desc_light = "In development."
+corridor2=room('collapsed corridor', 0, 2)
+corridor2.desc_dark = ("You've fallen through the floor! It's a miracle you weren't killed in the collapse.\n" + 
+                       "There's a basement here - good thing, too, or you would have been buried by the snow." +
+                       "It's dark and musty, although a harsh wind is quickly sweeping the smell away. You've got to get out of here."
+corridor2.desc_light = "In development."
 
 flashlight = item("flashlight")
 flashlight.desc = ("It's a flashlight. It's bright yellow color and the light is a little dim, but it's enough" +
@@ -190,7 +192,7 @@ while game_finish == 0:
             sleep(1)
             print("(hint: type 'clear snow' to open the door)")
             check_action += 1
-        if command == 'clear snow' or command == 'move snow':
+        if command in ['clear snow', 'move snow', 'push snow']:
             print("The snow is, quite literally, freezing cold. Good thing you've got your ski clothes on.")
             print("Pushing snow", end = " ")
             loading = 0
