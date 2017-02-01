@@ -110,7 +110,7 @@ location = room1
 door1=0
 game_finish = 0 
 inventory=[backpack, flashlight, bottle]
-corridor_collaspsed = 0
+corridor_collapsed = 0
 check_action = 0
 
 #intro starts here
@@ -166,7 +166,7 @@ while game_finish == 0:
                     check_action += 1
                     chest.contents.remove(x)
             
-            for x in ['leave', 'leave room', 'exit', 'corridor', 'forward', 'enter', 'enter corridor', 'exit room']:
+            for x in ['leave', 'leave room', 'exit', 'corridor', 'forward', 'enter', 'enter corridor', 'enter door', 'exit room']:
                 if command==x or command == "go " + x:
                     check_action += 1
                     if door1==0:
@@ -180,11 +180,8 @@ while game_finish == 0:
                             print("It's night-time out, and your eyes are starting to adjust to the light of the moon.")
                             loading("Your eyes are adjusting", 3)
                         look(flashlight.state)
-        if corridor_collapsed == 1:
-#2nd time you can enter room
-            
-                        
-                        
+#       if corridor_collapsed == 1:
+#2nd time you can enter room                    
     if location == corridor1:
         for x in ['back', 'room1', 'entrance', 'turn around']:
             if (command == x) or (command == "go" + x):
@@ -192,7 +189,7 @@ while game_finish == 0:
                 location = room1
                 look(flashlight.state)
         for x in ['forward', 'door', 'end of corridor']:
-            if command == x or command == "go " + x:
+            if command in [x, "go " + x, "look " + x, "look at " + x]:
                 print("You walk through the dense snow. It's hard to find your footing, good thing you're wearing boots.")
                 print("At the end of the corridor, the snow is even thicker, piling up against the door in a giant drift. " +
                       "It's a blinding white even in the moonlight. You can feel wind blow in from outside, " +
@@ -263,9 +260,13 @@ while game_finish == 0:
                 bottle.water = "half"
                 print("You drink half the water in your bottle.")
     if command == 'quit':
-        raise SystemExit            
+        raise SystemExit
     if check_action == 0:
-        print("Sorry, I don't recognize that word.")
+        if "inspect" in command:
+            print("You can only inspect items in your inventory. Try looking instead (not all objects can be looked at).")
+        else:
+            print("Sorry, I don't recognize that word.")
+        
 
 
 
