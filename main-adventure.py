@@ -1,5 +1,5 @@
 from time import sleep
-
+#classes
 class room:
     def __init__(self, name, x, y):
         self.name = name
@@ -12,7 +12,7 @@ class item:
     def __init__(self, name):
         self.name=name
         self.desc = ""
-
+#functions
 def look(lit):
     if lit == 0:
         print(location.desc_dark)
@@ -58,7 +58,14 @@ def loading(action, time):
 def prints(str):
     print(str)
     sleep(2)
-            
+
+def help(location):
+    print(base_acts)
+    try print(location.acts)
+    except if collapsed_corridor == 0:
+        print(location.start_acts)
+
+#static variables
 room1=room('entrance', 0, 0)
 room1.desc_dark = ('You find yourself in a dimly lit room. You can make out a closed door, where light is ' +
                        'creeping through.')
@@ -106,6 +113,16 @@ chest = item("wooden chest")
 chest.desc = "A hand-crafted chest that looks as if it's seen better days. It contains:"
 chest.contents = [key, note] 
 
+#action lists
+start_acts = ['yes', 'no', 'quit', 'y', 'n']
+room1.start_acts = ['open door','open chest','look key', 'look note',
+		       'take key', 'take note', 'enter corridor']
+corridor1.acts = ['back', 'forward', 'look door', 'open door', 'clear snow']
+corridor2.acts = ['climb ladder']
+base_acts = ['help', 'quit', 'location', 'look', 'inspect ' + item in inventory,
+	     'inventory', 'light flashlight', 'drink']
+
+#starting variables
 location = room1
 door1=0
 game_finish = 0 
