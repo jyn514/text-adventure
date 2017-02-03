@@ -116,21 +116,29 @@ check_action = 0
 #intro starts here
 print("Would you like to watch the intro? It adds a story to the game. (yes/no)")
 command = input(">>")
-while (command != 'yes') and (command != 'no'):
-    print("Please type yes or no.")
-    command = input(">>")
+k=0
+while not(command in ['yes', 'no', 'y', 'n']):
+    if command == 'quit' or command == 'quit()':
+        print("Quitting. You will be returned to the python shell.")
+        raise SystemExit
+    else:
+        if k>=3:
+            print("Press Ctrl+D twice to force-close the game.")
+        print("Please type yes or no, or type 'quit' to exit the game.")
+        k+=1
+        command = input(">>")
     
-if command == 'yes':
+if command == 'yes' or command == 'y':
     prints(room1.desc_dark)
     print("You can't remember how you got here. The last thing you remember is hiking with your dog, Fido, ", end="")
     loading('in', 5)
     prints("Where were you hiking? God, your head hurts. Maybe a glass of water would do you good. \n" +
           "You reach into your backpack.")
-    prints("It's beaten up, not worn but as if it had been left in mud and marched on. What in the world " +
+    prints("It's beaten up, as if it had been left in mud and marched on. What in the world " +
           "happened?")
     prints("You get out your water bottle. The water inside is lukewarm, but it's better than nothing. ")
     prints("(hint: type 'backpack' or 'inventory' to check what's inside your backpack.)")
-    print("Where's Fido? Hopefully he wasn't killed in the")
+    print("Where's Fido? Hopefully he wasn't killed in the", end=" ")
     loading("avalanche", 3)
     prints(" -- an avalanche! ")
     prints("You remember now. You were hiking in Alaska, near Anchorage, when an avalanche, " +
@@ -259,16 +267,19 @@ while game_finish == 0:
             if bottle.water == "full":
                 bottle.water = "half"
                 print("You drink half the water in your bottle.")
-    if command == 'quit':
+    if command == 'quit' or command == 'quit()':
+        print("Exiting game. You will be returned to the Python shell.")
         raise SystemExit
     if check_action == 0:
-        if "inspect" in command:
-            print("You can only inspect items in your inventory. Try looking instead (not all objects can be looked at).")
+        if " " in command:
+            print("I don't recognize that phrase.")
+            if "inspect" in command:
+                print("You can only inspect items in your inventory. Try looking instead (not all objects can be looked at).")
+            elif 'kill' in command:
+                print("You don't have a weapon.")
         else:
             print("Sorry, I don't recognize that word.")
         
-
-
 
 print('Out of content. I guess that counts as beating the game?')
 game_finish = 1

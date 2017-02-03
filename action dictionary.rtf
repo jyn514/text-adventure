@@ -1,51 +1,9 @@
-"""current actions in list actions[]:
-['location', 'look', 'inventory', 'light', 'light flashlight', 'leave', 'exit', 'forward', 'flashlight',
-        'Flashlight', "inspect flashlight", "enter"]
-        
-    current functions in response to action commands: 
-        def look(lit):
-            if lit == 0:
-                print(location.desc_dark)
-            if lit == 1:
-                print(location.desc_light)
-
-        def light(lit):
-            if lit == 0:
-                print('You turn on your flashlight.')
-                print(location.desc_light)
-                return 1     
-            elif lit == 1:
-                print("You turn your flashlight off. You can't see for a moment as your eyes adjust.")
-                sleep(3)
-                print(location.desc_dark)
-                return 0    
-
-        elif command == 'location':
-             print(location.name)    
-        elif command == 'look':
-             look(flashlight.state)
-        elif command =='inventory':
-             for x in inventory:
-                 print(x.name)
-        for x in ['light', 'light flashlight', "turn on", "turn on light"]:
-             if command == x:
-                 flashlight.state = light(flashlight.state) 
-
-        if command not in actions:
-            print("Sorry, I don't recognize that word.") """
-         
-#new dictionary, new function inventory
-def inventory():
-    for x in inventory:
-        print(x.name)
-        
-def inspect(x):
-    if x in inventory:
-        print(x.desc)
-    else:
-        print("You tried to inspect an object not in your inventory!"
-        
+"""
 actions{'location' : print(location.name), 'look' : look(flashlight.state), 'inventory' : inventory(), 
-        'light' : light(flashlight.state), 'inspect': inspect()}
-#known error for inspect() call
+       	'light' : light(flashlight.state), 'inspect': inspect()}
+"""
 
+1st_loop_actions['yes', 'no', 'quit', 'y', 'n']
+
+room1_actions_start['open door', 'open', 'look chest', 'chest', 'open chest',
+		    'look at chest', 'inspect key', 'inspect note'
