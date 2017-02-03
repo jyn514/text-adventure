@@ -3,7 +3,13 @@ actions{'location' : print(location.name), 'look' : look(flashlight.state), 'inv
        	'light' : light(flashlight.state), 'inspect': inspect()}
 """
 
-1st_loop_actions['yes', 'no', 'quit', 'y', 'n']
+start_acts = ['yes', 'no', 'quit', 'y', 'n']
 
-room1_actions_start['open door', 'open', 'look chest', 'chest', 'open chest',
-		    'look at chest', 'inspect key', 'inspect note'
+room1.start_acts = ['open door','open chest','look key', 'look note',
+		       'take key', 'take note', 'enter corridor']
+corridor1.acts = ['back', 'forward', 'look door', 'open door', 'clear snow']
+
+corridor2.acts = ['climb ladder']
+
+base_acts = ['help', 'quit', 'location', 'look', 'inspect ' + item in inventory,
+	     'inventory', 'light flashlight', 'drink']
