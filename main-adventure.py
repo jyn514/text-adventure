@@ -119,7 +119,7 @@ command = input(">>")
 k=0
 while not(command in ['yes', 'no', 'y', 'n']):
     if command == 'quit' or command == 'quit()':
-        print("Quitting. You will be returned to the python shell.")
+        print("Quitting. Warning: Your shell will not work properly until you close and reopen it.")
         raise SystemExit
     else:
         if k>=3:
