@@ -1,5 +1,5 @@
 from time import sleep
-
+#classes
 class room:
     def __init__(self, name, x, y):
         self.name = name
@@ -12,7 +12,7 @@ class item:
     def __init__(self, name):
         self.name=name
         self.desc = ""
-
+#functions
 def look(lit):
     if lit == 0:
         print(location.desc_dark)
@@ -59,9 +59,19 @@ def prints(str):
     print(str)
     sleep(2)
 
-def help():
-    print("(Basic commands: look, location, inventory, inspect [item in inventory])")    
-            
+def help(location):
+    print("Actions available: ")
+    for x in base_acts:
+        print(x, end=", ")
+    if (location==room1) and (corridor_collapsed == 0):
+        pass
+    else:
+        for x in location.acts:
+            print(x, end=", ")
+    print("\n")
+
+#static variables
+
 room1=room('entrance', 0, 0)
 room1.desc_dark = ('You find yourself in a dimly lit room. You can make out a closed door, where light is ' +
                        'creeping through.')
@@ -109,21 +119,32 @@ chest = item("wooden chest")
 chest.desc = "A hand-crafted chest that looks as if it's seen better days. It contains:"
 chest.contents = [key, note] 
 
+
+#action lists
+start_acts = ['yes', 'no', 'quit', 'y', 'n']
+room1.start_acts = ['open door','open chest','look key', 'look note',
+		       'take key', 'take note', 'enter corridor']
+corridor1.acts = ['back', 'forward', 'look door', 'open door', 'clear snow']
+corridor2.acts = ['climb ladder']
+base_acts = ['help', 'quit', 'location', 'look', 'inspect item',
+	     'inventory', 'light flashlight', 'drink']
+
+
+#dynamic variables
 location = room1
 door1=0
 game_finish = 0 
 inventory=[backpack, flashlight, bottle]
 corridor_collapsed = 0
 check_action = 0
-
+    
 #intro starts here
-print("Would you like to watch the intro? It adds a story to the game. (yes/no)")
+print("Would you like to watch the intro? It adds a story to the game. (yes/no/quit)")
 command = input(">>")
 k=0
 while not(command in ['yes', 'no', 'y', 'n']):
-    if command == 'quit' or command == 'quit()':
-        print("Quitting. You will be returned to the python shell.")
-        raise SystemExit
+    if command in ['quit', 'quit()', 'exit', 'exit()']:
+        quit()
     else:
         if k>=3:
             print("Press Ctrl+D twice to force-close the game.")
@@ -147,8 +168,8 @@ if command == 'yes' or command == 'y':
     prints("You remember now. You were hiking in Alaska, near Anchorage, when an avalanche, " +
           "threw you off the path and into the air. \nYou need to find Fido and get out of here, " +
           "wherever 'here' is.")
-    
-help()
+
+help(location)
 while game_finish == 0:
 #interactive game starts here    
     check_action = 0    
@@ -236,7 +257,8 @@ while game_finish == 0:
                 print("You can't see well enough to climb in the dark.")
             check_action=1
     if command == 'help':
-        help()
+        help(location)
+        check_action+=1
     if command == 'location':
         check_action += 1
         print(location.name)    
@@ -273,8 +295,7 @@ while game_finish == 0:
                 bottle.water = "half"
                 print("You drink half the water in your bottle.")
     if command == 'quit' or command == 'quit()':
-        print("Exiting game. You will be returned to the Python shell.")
-        raise SystemExit
+        quit()
     if check_action == 0:
         if " " in command:
             print("I don't recognize that phrase.")
@@ -288,4 +309,4 @@ while game_finish == 0:
 
 print('Out of content. I guess that counts as beating the game?')
 game_finish = 1
-raise SystemExit
+quit()
