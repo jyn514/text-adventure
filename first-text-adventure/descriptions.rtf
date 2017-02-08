@@ -1,0 +1,45 @@
+Opening text:
+"You are Prince Corwin of Amber, son of King Oberon, son of Dworkin Barimen. 
+ Your elder brother, Eric, has died in an assault by mysterious forces, an assault you led an army to repel, 
+     but not before passing the crown, and more importantly, the Jewel of Amber on to you. 
+ The Jewel of Judgement gives you power over Amber - over the weather, over the castle, and ultimately over the Shadows:
+	 the reflections of Amber, a multiverse of alternate worlds which are similar to Amber to a greater or lesser extent, 
+	 before eventually dissolving into infinite Shadows of Chaos.
+ To use the Jewel, however, you must attune yourself to the Pattern, the magical maze deep underneath the castle of Amber.
+ Are you ready to walk the Pattern?"
+
+Starting room idea:
+"You enter a circular room with a compass rose engraved on the floor. Behind you are the stairs to the castle proper.
+The south arrow points to the exit: a corridor branching into two paths, one heading southwest, the other southeast. 
+There is moss growing on the walls and a light shining from the ceiling far above, although it is too bright to look at directly. 
+The walls are cracked under the weight of the castle above and appear an off-white shade. 
+It is cool, despite the constant light, and you can feel a hint of a breeze from the passage ahead.
+
+	Unique actions:
+	[back, go castle, climb stairs]: "You will not have mastery over the Shadows until you walk the Pattern."
+	[look light, up]: "You close your eyes and look at the light. It is harsh even through your eyelids.
+		sleep(2)
+		"You look away from the light and open your eyes.
+	[look walls]: "As you approach the walls, your shadow falls upon them. Now that the light is not so bright, you can see they are made of dark grey stone. They are cold to the touch, and the moss upon them has a strange, velvet texture."
+	look 
+	
+Ending text:
+"You have walked the Pattern. You are now the true master of Amber, and all its infinite Shadows. 
+May your rule be long and your hand be wise."
+	
+Challenge with timer:
+"An agent of Chaos has infiltrated Amber. She slipped away in secret to mar the Pattern and revert all to primordeal Chaos. 
+You must stop her, but you have little time. Can you save the Pattern before it is destroyed?"
+[Timer]
+	
+No obstacles, but path must be walked in specific order, with clues through game.	
+	
+Map idea: 3-d cone (v)
+character starts 1.north
+path = treble clef
+1.center == 1st veil, links to 2.north
+2.center == 2nd veil, links to 3.north
+3.center == 3rd veil links to 4.center
+4.center == end
+more difficult each level.
+sketch in blue notebook pg. 12
