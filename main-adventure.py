@@ -252,7 +252,10 @@ while game_finish == 0:
         if command in ['climb ladder', 'climb', 'use ladder']:
             if flashlight.state==1:
                 loading("Climbing ladder", 3)
-                location = room1
+                location = room1    
+                print('Out of content. I guess that counts as beating the game?')
+                game_finish = 1
+                quit()
             else:
                 print("You can't see well enough to climb in the dark.")
             check_action=1
@@ -306,7 +309,3 @@ while game_finish == 0:
         else:
             print("Sorry, I don't recognize that word.")
         
-
-print('Out of content. I guess that counts as beating the game?')
-game_finish = 1
-quit()
