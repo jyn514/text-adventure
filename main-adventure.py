@@ -31,12 +31,13 @@ def light(lit):
         return 0
 
 def check_water(water):
+    print("Your water bottle. It's made of a light metal, maybe aluminum.", end=" ")
     if water == "full":
-        return bottle.desc_full
+        print(bottle.desc_full)
     elif water == "half":
-        return bottle.desc_half_full
+        print(bottle.desc_half_full)
     elif water == "empty":
-        return bottle.desc_empty
+        print(bottle.desc_empty)
     else:
         print('error')
 
@@ -63,35 +64,38 @@ def help(location):
     print("Actions available: ")
     for x in base_acts:
         print(x, end=", ")
-    if (location==room1) and (corridor_collapsed == 0):
-        pass
-    else:
-        for x in location.acts:
+    for x in location.acts:
             print(x, end=", ")
     print("\n")
 
 #static variables
 
-room1=room('entrance', 0, 0)
+room1=room('A mysterious shack.', 0, 0)
 room1.desc_dark = ('You find yourself in a dimly lit room. You can make out a closed door, where light is ' +
                        'creeping through.')
 room1.desc_light = ('Your flashlight is brighter than you expected in the dim room. The room is made of wood planks, ' +
                        'and the ceiling is sloped. There is a chest in the middle of the room.')
 
-corridor1=room('corridor', 0, 1)
+corridor1=room('A snow-filled corridor.', 0, 1)
 corridor1.desc_dark = ("There's a hole in the roof. There's a ton of snow all over the passageway, and even with the light of the " +
                        "moon, you can't see to the end of the corridor.")
 corridor1.desc_light = ("This whole corridor looks ready to collapse. The room has already caved in, and there's snow  " +
                         "all over the passageway. Broken planks stick out here and there amongst the wreckage. At the end of "+
                         "the passage, you can just make out a closed door.")
 
-corridor2=room('collapsed corridor', 0, 2)
+corridor2=room('An abandoned basement.', 0, 2)
 corridor2.desc_dark = ("The snow is everywhere down here. The corners are dark and musty, although a harsh wind is quickly sweeping " +
                        "the smell away.\nYou've got to get out of here, but you can't see an exit in this accursed snow.")
 corridor2.desc_light = ("The snow above is nothing compared to the snow here, which fills the room. "
                         "It looks like this was a basement in another time. There's a broom in the corner and some kitchen supplies. " +
                         "\nThere's a ladder up to the corridor above, if you're careful you might be able to climb it. " +
                         "If there's another exit, it's been buried by the snow.")
+
+room1new=room("A mysterious shack.", 0, 0)
+room1new.desc_dark = ("This is the room you woke up in. The door is ajar and you can see the remains of the collapsed " +
+		      "corridor through it.")
+room1new.desc_light = ("This is the room you woke up in. It held up surprisingly well to the snow, which spills in from the ajar " +
+                       "door. There's a chest in the center of the room.")
 
 flashlight = item("flashlight")
 flashlight.desc = ("It's a flashlight. It's bright yellow color and the light is a little dim, but it's enough " +
@@ -107,8 +111,7 @@ bottle.water = "full"
 bottle.desc_full =  "It's full to the brim, and a little heavy to carry."
 bottle.desc_half_full = "It's half-full, and lighter than it was."
 bottle.desc_empty = "It's dry. There's a couple droplets left, but they're resolutely clinging to the bottom."
-bottle.desc = ("Your water bottle. It's made of a light metal, maybe aluminum. " + check_water(bottle.water))
-
+                       
 key = item("key")
 key.desc = "An old iron key, worn by time. Perhaps you'll find a use for it later."
 
@@ -122,10 +125,10 @@ chest.contents = [key, note]
 
 #action lists
 start_acts = ['yes', 'no', 'quit', 'y', 'n']
-room1.start_acts = ['open door','open chest','look key', 'look note',
-		       'take key', 'take note', 'enter corridor']
+room1.acts = ['open door', 'enter corridor']
 corridor1.acts = ['back', 'forward', 'look door', 'open door', 'clear snow']
 corridor2.acts = ['climb ladder']
+room1new.acts = ['open chest', 'look chest', 'take key', 'take note', 'descend ladder']
 base_acts = ['help', 'quit', 'location', 'look', 'inspect item',
 	     'inventory', 'light flashlight', 'drink']
 
@@ -135,7 +138,6 @@ location = room1
 door1=0
 game_finish = 0 
 inventory=[backpack, flashlight, bottle]
-corridor_collapsed = 0
 check_action = 0
     
 #intro starts here
@@ -175,8 +177,7 @@ while game_finish == 0:
     check_action = 0    
     command = input ('>>')
     if location == room1:
-        if corridor_collapsed == 0:
-#1st time you're in the room
+#need to fix indents once I get to an IDE
             if (command =='open door') or (command == 'open'):
                 door1=1
                 check_action += 1
@@ -206,14 +207,13 @@ while game_finish == 0:
                     elif door1==1:
                         prints("You walk into the corridor ahead. There is a chill in the air you can feel even through " +
                                    "your winter clothes.")
-#location changes to corridor1
+#location changes to corridor1 (also, indents correct)
                         location=corridor1
                         if flashlight.state==0:
                             print("It's night-time out, and your eyes are starting to adjust to the light of the moon.")
                             loading("Your eyes are adjusting", 3)
                         look(flashlight.state)
-#       if corridor_collapsed == 1:
-#2nd time you can enter room                    
+#       if corridor_collapsed == 1:                
     if location == corridor1:
         for x in ['back', 'room1', 'entrance', 'turn around']:
             if (command == x) or (command == "go" + x):
@@ -252,7 +252,8 @@ while game_finish == 0:
         if command in ['climb ladder', 'climb', 'use ladder']:
             if flashlight.state==1:
                 loading("Climbing ladder", 3)
-                location = room1
+                location = room1new
+		        look(flashlight.state)
             else:
                 print("You can't see well enough to climb in the dark.")
             check_action=1
@@ -266,13 +267,14 @@ while game_finish == 0:
         check_action += 1
         look(flashlight.state)
     for x in inventory:
-        if command in [x.name, "inspect " + x.name, "look " + x.name, "look at " + x.name]:
+        if command in ['bottle', 'inspect bottle', 'look bottle', 'look at bottle']:
+            break
+        elif command in [x.name, "inspect " + x.name, "look " + x.name, "look at " + x.name]:
             inspect(x)
             check_action += 1
-    for x in ['bottle', 'inspect bottle', 'look bottle', 'look at bottle']:
-        if command == x:
-            inspect(bottle)
-            check_action += 1 
+    if command in ['bottle', 'inspect bottle', 'look bottle', 'look at bottle']:
+        check_water(bottle.water)
+        check_action += 1 
     for x in ['inspect backpack', 'backpack', 'bookbag', 'bag', 'inventory', 'look backpack', 'look at backpack']:
         if command == x:
             for y in inventory:
@@ -298,7 +300,7 @@ while game_finish == 0:
         quit()
     if check_action == 0:
         if " " in command:
-            print("I don't recognize that phrase.")
+            print("I don't recognize that phrase. If you only typed one word, please remove any spaces.")
             if "inspect" in command:
                 print("You can only inspect items in your inventory. Try looking instead (not all objects can be looked at).")
             elif 'kill' in command:
