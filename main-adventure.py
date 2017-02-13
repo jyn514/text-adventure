@@ -47,19 +47,6 @@ def inspect(x):
     else:
         print("You can't inspect things that aren't in your backpack. Try looking instead.")
 
-def loading(action, time):
-    print(action, end = " ")
-    loading = 0
-    while loading < time:
-        sleep(1)
-        loading += 1
-        print(".", end = " ")
-    print("\n")
-
-def prints(str):
-    print(str)
-    sleep(2)
-
 def help(location):
     print("Actions available: ")
     for x in base_acts:
@@ -93,7 +80,7 @@ corridor2.desc_light = ("The snow above is nothing compared to the snow here, wh
 
 room1new=room("A mysterious shack.", 0, 0)
 room1new.desc_dark = ("This is the room you woke up in. The door is ajar and you can see the remains of the collapsed " +
-		      "corridor through it.")
+              "corridor through it.")
 room1new.desc_light = ("This is the room you woke up in. It held up surprisingly well to the snow, which spills in from the ajar " +
                        "door. There's a chest in the center of the room.")
 
@@ -122,6 +109,9 @@ chest = item("wooden chest")
 chest.desc = "A hand-crafted chest that looks as if it's seen better days. It contains:"
 chest.contents = [key, note] 
 
+broom = item("wooden broom")
+broom.desc = "An old, wooden, broom. What could be its use?"
+corridor2.contents=[broom]
 
 #action lists
 start_acts = ['yes', 'no', 'quit', 'y', 'n']
@@ -130,7 +120,7 @@ corridor1.acts = ['back', 'forward', 'look door', 'open door', 'clear snow']
 corridor2.acts = ['climb ladder']
 room1new.acts = ['open chest', 'look chest', 'take key', 'take note', 'descend ladder']
 base_acts = ['help', 'quit', 'location', 'look', 'inspect item',
-	     'inventory', 'light flashlight', 'drink']
+         'inventory', 'light flashlight', 'drink']
 
 
 #dynamic variables
@@ -143,7 +133,7 @@ check_action = 0
 #intro starts here
 print("Would you like to watch the intro? It adds a story to the game. (yes/no/quit)")
 command = input(">>")
-k=0
+k=0    
 while not(command in ['yes', 'no', 'y', 'n']):
     if command in ['quit', 'quit()', 'exit', 'exit()']:
         quit()
@@ -153,8 +143,25 @@ while not(command in ['yes', 'no', 'y', 'n']):
         print("Please type yes or no, or type 'quit' to exit the game.")
         k+=1
         command = input(">>")
-    
-if command == 'yes' or command == 'y':
+        
+if command == 'no' or command=='n':
+    def loading(action, time):
+        pass
+    def prints(str):
+        print(str)
+    print("All loading sequences will be skipped.")    
+if command == 'yes' or command == 'y':       
+    def loading(action, time):
+        print(action, end = " ")
+        loading = 0
+        while loading < time:
+            sleep(1)
+            loading += 1
+            print(".", end = " ")
+        print("\n")
+    def prints(str):
+        print(str)
+        sleep(2)
     prints(room1.desc_dark)
     print("You can't remember how you got here. The last thing you remember is hiking with your dog, Fido, ", end="")
     loading('in', 5)
@@ -163,7 +170,7 @@ if command == 'yes' or command == 'y':
     prints("It's beaten up, as if it had been left in mud and marched on. What in the world " +
           "happened?")
     prints("You get out your water bottle. The water inside is lukewarm, but it's better than nothing. ")
-    prints("(hint: type 'backpack' or 'inventory' to check what's inside your backpack.)")
+    prints("(hint: type 'backpack' or 'inventory' to check what's inside your backpack.)\n")
     print("Where's Fido? Hopefully he wasn't killed in the", end=" ")
     loading("avalanche", 3)
     prints(" -- an avalanche! ")
@@ -174,46 +181,48 @@ if command == 'yes' or command == 'y':
 help(location)
 while game_finish == 0:
 #interactive game starts here    
-    check_action = 0    
+    check_action = 0
+    for x in ['take ', 'use ', 'look ']:
+        if x in command:
+            temp = command.replace(x, "")
+            print(temp)
     command = input ('>>')
     if location == room1:
-#need to fix indents once I get to an IDE
-            if (command =='open door') or (command == 'open'):
-                door1=1
+        if (command =='open door') or (command == 'open'):
+            door1=1
+            check_action += 1
+            print('You open the door to the shack. Light dimly shines from the corridor ahead.')
+        for x in ['look chest', 'chest', 'open chest', 'look at chest']:
+            if command == x:
+                print(chest.desc)
+                for x in chest.contents:
+                    print(x.name)
                 check_action += 1
-                print('You open the door to the shack. Light dimly shines from the corridor ahead.')
-            for x in ['look chest', 'chest', 'open chest', 'look at chest']:
-                if command == x:
-                    print(chest.desc)
-                    for x in chest.contents:
-                        print(x.name)
+        for x in chest.contents:
+            for y in [x.name, "inspect " + x.name, "look " + x.name, "look at " + x.name]:
+                if command == y:
+                    print (x.desc)
                     check_action += 1
-            for x in chest.contents:
-                for y in [x.name, "inspect " + x.name, "look " + x.name, "look at " + x.name]:
-                    if command == y:
-                        print (x.desc)
-                        check_action += 1
-                if (command == "take " + x.name):
-                    inventory.append(x)
-                    print("You take the " + x.name + ".")
-                    check_action += 1
-                    chest.contents.remove(x)
-            
-            for x in ['leave', 'leave room', 'exit', 'corridor', 'forward', 'enter', 'enter corridor', 'enter door', 'exit room']:
-                if command==x or command == "go " + x:
-                    check_action += 1
-                    if door1==0:
-                        print('You hit your head on the door! Ouch.')
-                    elif door1==1:
-                        prints("You walk into the corridor ahead. There is a chill in the air you can feel even through " +
-                                   "your winter clothes.")
-#location changes to corridor1 (also, indents correct)
-                        location=corridor1
-                        if flashlight.state==0:
-                            print("It's night-time out, and your eyes are starting to adjust to the light of the moon.")
-                            loading("Your eyes are adjusting", 3)
-                        look(flashlight.state)
-#       if corridor_collapsed == 1:                
+            if (command == "take " + x.name):
+                inventory.append(x)
+                print("You take the " + x.name + ".")
+                check_action += 1
+                chest.contents.remove(x)
+        
+        for x in ['leave', 'leave room', 'exit', 'corridor', 'forward', 'enter', 'enter corridor', 'enter door', 'exit room']:
+            if command==x or command == "go " + x:
+                check_action += 1
+                if door1==0:
+                    print('You hit your head on the door! Ouch.')
+                elif door1==1:
+                    prints("You walk into the corridor ahead. There is a chill in the air you can feel even through " +
+                               "your winter clothes.")
+#location changes to corridor1
+                    location=corridor1
+                    if flashlight.state==0:
+                        print("It's night-time out, and your eyes are starting to adjust to the light of the moon.")
+                        loading("Your eyes are adjusting", 3)
+                    look(flashlight.state)              
     if location == corridor1:
         for x in ['back', 'room1', 'entrance', 'turn around']:
             if (command == x) or (command == "go" + x):
@@ -248,15 +257,49 @@ while game_finish == 0:
             look(flashlight.state)
             check_action += 1
 #location changes to corridor2
+    if location==room1new:
+        for x in ['look chest', 'chest', 'open chest', 'look at chest']:
+            if command == x:
+                print(chest.desc)
+                for x in chest.contents:
+                    print(x.name)
+                check_action += 1
+        for x in chest.contents:
+            for y in [x.name, "inspect " + x.name, "look " + x.name, "look at " + x.name]:
+                if command == y:
+                    print (x.desc)
+                    check_action += 1
+            if (command == "take " + x.name):
+                inventory.append(x)
+                print("You take the " + x.name + ".")
+                check_action += 1
+                chest.contents.remove(x)
+        for x in ['back', 'climb', 'climb down', 'descend', 'basement']:
+            if command==x or command=="go " + x:
+                print("You climb down the ladder.")
+                location=corridor2
+                look(flashlight.state)
+                check_action+=1
     if location == corridor2:
-        if command in ['climb ladder', 'climb', 'use ladder']:
+        if command in ['climb ladder', 'climb', 'use ladder', 'climb up']:
             if flashlight.state==1:
                 loading("Climbing ladder", 3)
+#location changes to room1new
                 location = room1new
-		        look(flashlight.state)
+                look(flashlight.state)
             else:
                 print("You can't see well enough to climb in the dark.")
             check_action=1
+        if command == 'take broom':
+            if broom in corridor2.contents:    
+                inventory.append(broom)
+                corridor2.contents.remove(broom)
+                print("You take the broom.")
+            else:
+                print("The broom is already in your inventory.")
+        for x in ['use broom', 'sweep']:
+            if command==x or command==x+" snow":
+                print("You sweep the snow out of the way using the broom. ")
     if command == 'help':
         help(location)
         check_action+=1
@@ -272,6 +315,13 @@ while game_finish == 0:
         elif command in [x.name, "inspect " + x.name, "look " + x.name, "look at " + x.name]:
             inspect(x)
             check_action += 1
+    if command == 'inspect':
+        print(eval(temp))
+        inspect(temp)
+        check_action+=1
+    if command == 'use':
+        doc = open('main-adventure.py')
+        exec(println(doc.search('use ' + temp)+1))
     if command in ['bottle', 'inspect bottle', 'look bottle', 'look at bottle']:
         check_water(bottle.water)
         check_action += 1 
@@ -305,10 +355,10 @@ while game_finish == 0:
                 print("You can only inspect items in your inventory. Try looking instead (not all objects can be looked at).")
             elif 'kill' in command:
                 print("You don't have a weapon.")
+            elif 'take ' in command:
+                print("You tried to take something that the game doesn't allow. Perhaps it is already in inventory, or doesn't exist.")
         else:
             print("Sorry, I don't recognize that word.")
         
-
 print('Out of content. I guess that counts as beating the game?')
-game_finish = 1
 quit()
